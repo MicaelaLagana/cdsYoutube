@@ -1,14 +1,44 @@
 import React, { useState } from "react";
 import TextField from '@mui/material/TextField';
-import { Box } from "@mui/system";
+import { Box, textAlign } from "@mui/system";
 import Button from '@mui/material/Button';
+import { makeStyles } from '@mui/styles';
 
 const url = 'https://www.googleapis.com/youtube/v3/';
 //Avisar lo de la quota
 const key = 'AIzaSyDlhZN19kdPW6ugY0mru4VtvhKSw1O6Goc'
 const requestUrl = `${url}search?part=snippet&key=${key}`;
 
+const useStyle = makeStyles({
+  searchbar: {
+    display: "flex",
+    flexDirection: "row",
+    maxWidth: "100%",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    justifyItems: "center",
+    padding: "10px",
+  },
+  search: {
+    width: "80em",
+    marginLeft: "20px",
+    marginBottom: "20px",
+    marginRight: "20px",
+    marginTop: "20px",
+    alignContent: "center"
+  },
+  button: {
+    marginLeft: "20px",
+    marginBottom: "20px",
+    marginRight: "20px",
+    marginTop: "20px",
+    alignContent: "center"
+  }
+})
+
+
 export default function Searchbar(props) {
+  const classes = useStyle()
   const [search, setSearch] = useState('');
 
 
@@ -45,18 +75,10 @@ export default function Searchbar(props) {
 
 
   return (
-    <Box>
-      <Box>
+    <Box className={classes.searchbar} >
           <TextField id="standard-basic" label="Search" variant="standard"  placeholder='video' value={search ? search : ""} onChange={handleOnChange}
-            sx={{
-              mr: 3,
-              ml: 3,
-              width: 400
-            }} onKeyPress={handleEnter}/> 
-      </Box>
-      <Box>
-          <Button variant="contained" onClick={handleClick}>Buscar</Button>
-      </Box>
+          onKeyPress={handleEnter} className={classes.search}/> 
+          <Button variant="contained" onClick={handleClick} className={classes.button}>Buscar</Button>
     </Box>
     );
   }

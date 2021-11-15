@@ -8,10 +8,10 @@ import VideoCard from "../videocard";
 
 const useStyles = makeStyles({
   video: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    flexWrap: "wrap",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-evenly",
+      width: "300px"
   },
 });
 
@@ -22,13 +22,14 @@ const VideoItem = (props) => {
 
   return (
     <Box>
-    <div className={classes.catalog}>
+    <div className={classes.video}>
       {listVideos.map(v => (<VideoCard video={v} onClick={props.onClick}/>))}
     </div>
     </Box>
   );
 }
 
+//Estaba pisandos los videos que vienen por props, así que voy a dejarlo comentado, no olvidarme de preguntar
 // VideoItem.defaultProps ={
 //   videos: [],
 // }

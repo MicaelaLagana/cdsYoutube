@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ButtonNav from '../../components/button';
 import Searchbar from '../../components/searchBar/searchbar';
 import { makeStyles } from '@mui/styles';
-import { Box } from '@mui/system';
+import { Box, height } from '@mui/system';
 import Video from '../../components/video';
 import VideoItem from '../../components/video_item';
 
@@ -10,7 +10,7 @@ import VideoItem from '../../components/video_item';
 //https://developers.google.com/youtube/v3/docs/search/list?apix_params=%7B%22part%22%3A%5B%22snippet%22%5D%2C%22topicId%22%3A%22paramore%22%7D
 
 const url = 'https://www.googleapis.com/youtube/v3/';
-//Avisar lo de la quota
+
 const key = 'AIzaSyDlhZN19kdPW6ugY0mru4VtvhKSw1O6Goc'
 
 const requestUrl = `${url}search?part=snippet&key=${key}`;
@@ -25,28 +25,20 @@ const requestUrl = `${url}search?part=snippet&key=${key}`;
 
 const useStyle = makeStyles({
     container: {
-        display: "flex",
-        flexDirection: "column",
-        maxWidth: "50vw"
-    },
-    rowContainer: {
-        display: "flex",
-        flexDirection: "row",
-    },
-    play: {
-        display: "flex",
-        flexDirection: "column",
-        maxWidth: "50vw"
+
     }
 })
 
 export default function VideoFeed() {
     const [videos, setVideos] = useState([]);
     const [videoID, setVideoID] = useState([]);
- 
     const classes = useStyle()
 
     useEffect(() => {
+        //GetVideos();
+
+        //Para ponerme un poco en modo ahorro armé un mock con la respuesta del json 
+        // y no vencer la quota de las keys
         GetVideoMock();
     }, []); 
 
@@ -261,22 +253,16 @@ export default function VideoFeed() {
     
     return (
         <Box>      
-            <div sx={12}>
-            <Box className={classes.container}>
-                <Box className={classes.rowContainer}>
-                    <Searchbar setVideoID={setVideoID} setVideos={setVideos}/>
-                </Box>
-            </Box>
-            <Box className={classes.rowContainer}>
-                <Box className={classes.play}>
+            <Searchbar setVideoID={setVideoID} setVideos={setVideos}/>
+            <Box>
+                <Box>
                     <Video video={videos} id={videoID} />
                 </Box>
                 <Box>
-                    <VideoItem videos={videos} onClick={setVideoID}/>
+                    <VideoItem videos={videos} onClick={setVideoID} />
                 </Box>
             </Box> 
                 <ButtonNav page={"/video_detail"} pageName={"Detalle"} />
-            </div>
         </Box>
     );
 }
