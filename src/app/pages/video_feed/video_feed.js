@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ButtonNav from '../../components/button';
 import Searchbar from '../../components/searchBar/searchbar';
 import { makeStyles } from '@mui/styles';
-import { Box, height } from '@mui/system';
+import { Box } from '@mui/system';
 import Video from '../../components/video';
 import VideoItem from '../../components/video_item';
 
@@ -40,6 +40,7 @@ export default function VideoFeed() {
     const [videoID, setVideoID] = useState([]);
     const [title, setVideoTitle] = useState("");
     const classes = useStyle()
+    let vCounter = 0;
 
     useEffect(() => {
         GetVideos();
@@ -265,11 +266,12 @@ export default function VideoFeed() {
             <Box className={classes.videoFeed}>
                 <Box>
                     <Video video={videos} id={videoID} title={title}/>
-                    <ButtonNav page={"/video_detail"} pageName={"Detalle"} />
+                    <ButtonNav page={`/video_detail/${videoID}`} pageName={"Detalle"} />
                 </Box>
                 <Box>
                     <VideoItem videos={videos} onClick={setVideoID} setVideoTitle={setVideoTitle} />
                 </Box>
+                <p>Counter: {vCounter}</p>
             </Box> 
         </Box>
     );

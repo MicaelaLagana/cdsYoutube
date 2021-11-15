@@ -13,7 +13,7 @@ ReactDOM.render(
     <BrowserRouter>
     <Routes>
         <Route path="/" element={<VideoFeed />}/>
-        <Route path="/video_detail" element={<VideoDetail />} />
+        <Route path="/video_detail/:id" element={<VideoDetail />} />
     </Routes>
     </BrowserRouter>
   </React.StrictMode>,
