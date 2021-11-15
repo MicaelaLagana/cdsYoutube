@@ -6,7 +6,7 @@ export default function Title(props) {
     console.log("titulo: ", props)
     return (
         <Box>
-            {/* <Typography>{props.title}</Typography> */}
+            <h1>{props.title}</h1>
         </Box>
     )
 }

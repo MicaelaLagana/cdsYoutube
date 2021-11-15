@@ -25,14 +25,13 @@ const useStyles = makeStyles({
 
 export default function Video(props) {
     const classes = useStyles();
-    const video = props.videos && props.videos.legnth ? props.videos[0] : "" ;
     let requestUrl = `${videoUrl}${props.id}`;
 
 
     return(
         <Box className={classes.container}>
             <iframe title="" src={requestUrl} allow="autoplay" className={classes.video}></iframe>
-            <Title>{ video ? video.snippet.title : "" }</Title>
+            <Title title={props.title}></Title>
         </Box>
 
     )

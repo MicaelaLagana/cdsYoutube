@@ -7,7 +7,7 @@ import VideoCard from "../videocard";
 
 
 const useStyles = makeStyles({
-  video: {
+  videoList: {
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-evenly",
@@ -21,10 +21,8 @@ const VideoItem = (props) => {
   const listVideos = props.videos && props.videos.length ? props.videos : [] ;
 
   return (
-    <Box>
-    <div className={classes.video}>
-      {listVideos.map(v => (<VideoCard video={v} onClick={props.onClick}/>))}
-    </div>
+    <Box className={classes.videoList}>
+      {listVideos.map(v => (<VideoCard video={v} onClick={props.onClick} setVideoTitle={props.setVideoTitle}/>))}
     </Box>
   );
 }

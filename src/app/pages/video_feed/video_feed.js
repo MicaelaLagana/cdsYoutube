@@ -24,22 +24,29 @@ const requestUrl = `${url}search?part=snippet&key=${key}`;
 // }
 
 const useStyle = makeStyles({
-    container: {
-
+    videoFeed: {
+        display: "flex",
+        flexDirection: "row",
+        maxWidth: "100%",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        justifyItems: "center",
+        padding: "10px",
     }
 })
 
 export default function VideoFeed() {
     const [videos, setVideos] = useState([]);
     const [videoID, setVideoID] = useState([]);
+    const [title, setVideoTitle] = useState("");
     const classes = useStyle()
 
     useEffect(() => {
-        //GetVideos();
+        GetVideos();
 
         //Para ponerme un poco en modo ahorro armé un mock con la respuesta del json 
         // y no vencer la quota de las keys
-        GetVideoMock();
+        //GetVideoMock();
     }, []); 
 
     // useEffect(() => {
@@ -57,6 +64,7 @@ export default function VideoFeed() {
           data => {
            setVideos(data.items);
            setVideoID(data.items[0].id.videoId);
+           setVideoTitle(data.items[0].snippet.title);
            console.log("id: ", data.items[0].id.videoId)
           }).catch((error) => {
           console.log("error: ", error)
@@ -250,19 +258,19 @@ export default function VideoFeed() {
         setVideos(responseMock.items);
         setVideoID(responseMock.items[0].id.videoId);
     }
-    
+
     return (
         <Box>      
-            <Searchbar setVideoID={setVideoID} setVideos={setVideos}/>
-            <Box>
+            <Searchbar setVideoID={setVideoID} setVideos={setVideos} setVideoTitle={setVideoTitle}/>
+            <Box className={classes.videoFeed}>
                 <Box>
-                    <Video video={videos} id={videoID} />
+                    <Video video={videos} id={videoID} title={title}/>
+                    <ButtonNav page={"/video_detail"} pageName={"Detalle"} />
                 </Box>
                 <Box>
-                    <VideoItem videos={videos} onClick={setVideoID} />
+                    <VideoItem videos={videos} onClick={setVideoID} setVideoTitle={setVideoTitle} />
                 </Box>
             </Box> 
-                <ButtonNav page={"/video_detail"} pageName={"Detalle"} />
         </Box>
     );
 }

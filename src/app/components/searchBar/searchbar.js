@@ -51,6 +51,7 @@ export default function Searchbar(props) {
       data => {
         props.setVideos(data.items);
         props.setVideoID(data.items[0].id.videoId)
+        props.setVideoTitle(data.items[0].snippet.title)
        console.log("id: ", data.items[0].id.videoId)
       }).catch((error) => {
         console.log("error: ", error)
