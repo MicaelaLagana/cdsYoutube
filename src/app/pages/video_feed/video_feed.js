@@ -39,8 +39,8 @@ export default function VideoFeed() {
     const [videos, setVideos] = useState([]);
     const [videoID, setVideoID] = useState([]);
     const [title, setVideoTitle] = useState("");
+    const [counter, setCounter] = useState(0);
     const classes = useStyle()
-    let vCounter = 0;
 
     useEffect(() => {
         GetVideos();
@@ -260,18 +260,19 @@ export default function VideoFeed() {
         setVideoID(responseMock.items[0].id.videoId);
     }
 
+
     return (
         <Box>      
             <Searchbar setVideoID={setVideoID} setVideos={setVideos} setVideoTitle={setVideoTitle}/>
             <Box className={classes.videoFeed}>
                 <Box>
-                    <Video video={videos} id={videoID} title={title}/>
+                    <Video video={videos} id={videoID} title={title} />
                     <ButtonNav page={`/video_detail/${videoID}`} pageName={"Detalle"} />
                 </Box>
                 <Box>
-                    <VideoItem videos={videos} onClick={setVideoID} setVideoTitle={setVideoTitle} />
+                    <VideoItem videos={videos} onClick={setCounter} setVideoID={setVideoID} setVideoTitle={setVideoTitle} counter={counter}/>
+                    <p>Counter: {counter}</p>
                 </Box>
-                <p>Counter: {vCounter}</p>
             </Box> 
         </Box>
     );

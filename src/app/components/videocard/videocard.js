@@ -29,10 +29,12 @@ const useStyles = makeStyles({
 export default function VideoCard(props) {
     const classes = useStyles();
     const {video} = props;
+    let counter = props.counter;
 
     function handleOnClick() {
-        props.onClick(video.id.videoId);
+        props.setVideoID(video.id.videoId);
         props.setVideoTitle(video.snippet.title);
+        props.onClick(counter + 1);
     }
 
     return(

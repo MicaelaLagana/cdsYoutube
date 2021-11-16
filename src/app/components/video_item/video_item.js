@@ -21,7 +21,7 @@ const VideoItem = (props) => {
 
   return (
     <Box className={classes.videoList}>
-      {reducedList.map(v => (<VideoCard video={v} onClick={props.onClick} setVideoTitle={props.setVideoTitle}/>))}
+      {reducedList.map(v => (<VideoCard video={v} onClick={props.onClick} setVideoTitle={props.setVideoTitle} setVideoID={props.setVideoID} counter={props.counter}/>))}
     </Box>
   );
 }
