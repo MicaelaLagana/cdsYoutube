@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ButtonNav from '../../components/button';
 import Searchbar from '../../components/searchBar/searchbar';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import Video from '../../components/video';
 import VideoItem from '../../components/video_item';
+import { useContextCDS } from '../../context/provider';
 
 
 //https://developers.google.com/youtube/v3/docs/search/list?apix_params=%7B%22part%22%3A%5B%22snippet%22%5D%2C%22topicId%22%3A%22paramore%22%7D
 
-const url = 'https://www.googleapis.com/youtube/v3/';
-
-const key = 'AIzaSyDlhZN19kdPW6ugY0mru4VtvhKSw1O6Goc'
-
-const requestUrl = `${url}search?part=snippet&key=${key}`;
 
 //  function makeUrl(baseUrl, params) {
 //   let newUrl = baseUrl
@@ -36,9 +32,7 @@ const useStyle = makeStyles({
 })
 
 export default function VideoFeed() {
-    const [videos, setVideos] = useState([]);
-    const [videoID, setVideoID] = useState([]);
-    const [title, setVideoTitle] = useState("");
+    const {videos, setVideos, videoID, setVideoID, title, setVideoTitle, GetVideos} = useContextCDS();
     const [counter, setCounter] = useState(0);
     const classes = useStyle()
 
@@ -58,19 +52,7 @@ export default function VideoFeed() {
     //     console.log(videoID)
     // }, [videoID]);
 
-    async function GetVideos() {
-        await fetch(requestUrl)
-        .then(res => res.json())
-        .then(
-          data => {
-           setVideos(data.items);
-           setVideoID(data.items[0].id.videoId);
-           setVideoTitle(data.items[0].snippet.title);
-           console.log("id: ", data.items[0].id.videoId)
-          }).catch((error) => {
-          console.log("error: ", error)
-        })
-      }
+   
 
       function GetVideoMock() {
         const responseMock = {
@@ -266,7 +248,7 @@ export default function VideoFeed() {
             <Searchbar setVideoID={setVideoID} setVideos={setVideos} setVideoTitle={setVideoTitle}/>
             <Box className={classes.videoFeed}>
                 <Box>
-                    <Video video={videos} id={videoID} title={title} />
+                    <Video id={videoID} title={title} />
                     <ButtonNav page={`/video_detail/${videoID}`} pageName={"Detalle"} />
                 </Box>
                 <Box>

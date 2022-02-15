@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ButtonNav from "../../components/button";
 import { makeStyles } from '@mui/styles';
-import { useParams } from 'react-router-dom';
+//import { useParams } from 'react-router-dom';
 import { Box } from '@mui/system';
-
-const url = 'https://www.googleapis.com/youtube/v3/';
-const key = 'AIzaSyDlhZN19kdPW6ugY0mru4VtvhKSw1O6Goc'
+import { useContextCDS } from '../../context/provider';
 
 const useStyle = makeStyles({
     container: {
@@ -47,30 +45,13 @@ const useStyle = makeStyles({
 })
 
 export default function VideoDetail() {
-    const { id } = useParams()
-    const [description, setVideoDescription] = useState([]);
-    const [title, setVideoTitle] = useState("");
-    const [thumbnails, setVideoThumbnail] = useState("");
+//    const { id } = useParams();   Aca ver como manejo el id en el context, porque antes lo mandaba por id
+    const {title, description, thumbnails, GetVideoByID} = useContextCDS();
     const classes = useStyle();
-    const requestUrl = `${url}videos?key=${key}&part=snippet&id=${id}`;
     
     useEffect(() => {
         GetVideoByID();
     }, []); 
-
-    async function GetVideoByID() {
-        await fetch(requestUrl)
-        .then(res => res.json())
-        .then(
-          data => {
-           setVideoDescription(data.items[0].snippet.description);
-           setVideoThumbnail(data.items[0].snippet.thumbnails.standard.url);
-           setVideoTitle(data.items[0].snippet.title);
-           console.log("id: ", data.items[0].id.videoId)
-          }).catch((error) => {
-          console.log("error: ", error)
-        })
-      }
 
 
     return (
