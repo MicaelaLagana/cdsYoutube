@@ -3,11 +3,7 @@ import TextField from '@mui/material/TextField';
 import { Box, textAlign } from "@mui/system";
 import Button from '@mui/material/Button';
 import { makeStyles } from '@mui/styles';
-
-const url = 'https://www.googleapis.com/youtube/v3/';
-//Avisar lo de la quota
-const key = 'AIzaSyDlhZN19kdPW6ugY0mru4VtvhKSw1O6Goc'
-const requestUrl = `${url}search?part=snippet&key=${key}`;
+import { useContextCDS } from '../../context/provider';
 
 const useStyle = makeStyles({
   searchbar: {
@@ -40,27 +36,11 @@ const useStyle = makeStyles({
 export default function Searchbar(props) {
   const classes = useStyle()
   const [search, setSearch] = useState('');
-
-
-  async function GetSearchThemeVideos() {
-    const QVideos =  `${requestUrl}&q=${search}`
-    console.log(QVideos);
-    await fetch(QVideos)
-    .then(res => res.json())
-    .then(
-      data => {
-        props.setVideos(data.items);
-        props.setVideoID(data.items[0].id.videoId)
-        props.setVideoTitle(data.items[0].snippet.title)
-       console.log("id: ", data.items[0].id.videoId)
-      }).catch((error) => {
-        console.log("error: ", error)
-      })
-    }
+  const {GetSearchThemeVideos} = useContextCDS();
 
     const handleEnter = (event) => {
       if (event.key === 'Enter') {
-        GetSearchThemeVideos();
+        GetSearchThemeVideos(search);
         setSearch("");
       }
     }
@@ -70,7 +50,7 @@ export default function Searchbar(props) {
     }
 
     function handleClick(){
-      GetSearchThemeVideos();
+      GetSearchThemeVideos(search);
       setSearch("");
   }
 

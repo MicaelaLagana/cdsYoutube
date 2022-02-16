@@ -5,18 +5,21 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import VideoFeed from './app/pages/video_feed';
 import VideoDetail from './app/pages/video_detail';
+import { ProviderCDS } from './app/context/provider';
 
 const rootElement = document.getElementById("root");
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-    <Routes>
-        <Route path="/" element={<VideoFeed />}/>
-        <Route path="/video_detail/:id" element={<VideoDetail />} />
-    </Routes>
-    </BrowserRouter>
-  </React.StrictMode>,
+    <React.StrictMode>
+      <ProviderCDS>
+        <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<VideoFeed />}/>
+              <Route path="/video_detail/:id" element={<VideoDetail />} />
+          </Routes>
+        </BrowserRouter>
+      </ProviderCDS>
+    </React.StrictMode>,
   rootElement
 );
 

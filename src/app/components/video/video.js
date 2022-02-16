@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from "@material-ui/core";
 import { Box } from '@mui/system';
 import Title from '../title';
+import { useContextCDS } from '../../context/provider';
 
 const useStyles = makeStyles({
     container: {
@@ -25,13 +26,14 @@ const useStyles = makeStyles({
 
 export default function Video(props) {
     const classes = useStyles();
-    let requestUrl = `${videoUrl}${props.id}`;
-
+    const { videoID, title } = useContextCDS();
+    let requestUrl = `${videoUrl + videoID}`;
+    console.log("requestURL embed: " + requestUrl);
 
     return(
         <Box className={classes.container}>
-            <iframe title="" src={requestUrl} allow="autoplay" className={classes.video}></iframe>
-            <Title title={props.title}></Title>
+            <iframe title={title} src={requestUrl} allow="autoplay" className={classes.video}></iframe>
+            <Title title={title}></Title>
         </Box>
 
     )
