@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
-import { Box, margin } from "@mui/system";
+import { Box } from "@mui/system";
+import { useContextCDS } from '../../context/provider';
 
 const useStyles = makeStyles({
     card: {
@@ -28,21 +29,21 @@ const useStyles = makeStyles({
 
 export default function VideoCard(props) {
     const classes = useStyles();
+    const {handleVideoOnClick} = useContextCDS();
     const {video} = props;
-    let counter = props.counter;
+    const  videoSnippetPath = `${video.snippet}`
+    const videoIDPath = `${video.id.videoId}`
 
-    function handleOnClick() {
-        props.setVideoID(video.id.videoId);
-        props.setVideoTitle(video.snippet.title);
-        props.onClick(counter + 1);
-    }
+    console.log("video en videocard: " + props.video);
+
+
 
     return(
-        <Box onClick={handleOnClick} className={classes.card}>
-            <img src={video.snippet.thumbnails.default.url} alt=""/>
+        <Box onClick={handleVideoOnClick(videoSnippetPath.title, videoIDPath)} className={classes.card}>
+            {/* <img src={videoSnippetPath.thumbnails.standard.url} alt=""/> */}
             <Box className={classes.text}>
-                <p className={classes.title}>{video.snippet.title}</p>
-                <p className={classes.author}>{video.snippet.channelTitle}</p>
+                <p className={classes.title}>{videoSnippetPath.title}</p>
+                <p className={classes.author}>{videoSnippetPath.channelTitle}</p>
             </Box>
         </Box>
     );

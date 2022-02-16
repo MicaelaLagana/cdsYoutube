@@ -45,7 +45,6 @@ const useStyle = makeStyles({
 })
 
 export default function VideoDetail() {
-//    const { id } = useParams();   Aca ver como manejo el id en el context, porque antes lo mandaba por id
     const {title, description, thumbnails, GetVideoByID} = useContextCDS();
     const classes = useStyle();
     
